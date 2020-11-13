@@ -1,7 +1,15 @@
 import React, {useState} from 'react'
+import styled from 'styled-components'
 import Char from './Char/Char'
 import Validation from './Validation/Validation'
 
+const StyledDiv = styled.div`
+  display: inline-block;
+  padding: 16px;
+  margin: 16px;
+  border: 1px solid black;
+  textAlign: center;
+  `;
 
 export default function App() {
 
@@ -25,24 +33,17 @@ export default function App() {
     setTextLen(updatedList.length)
   }
 
-  const style = {
-    display: "inline-block",
-    padding: '16px',
-    margin: '16px',
-    border: '1px solid black',
-    textAlign: 'center'
-  }
 
   return (
-    <div style={style}>
-      <input type="text" onChange={handleLen}/>
-      <h3>Text Lenght : {textLen}</h3>
-      {valiComponent}
-      {textInput.map((letter,index) => 
-      {
-        return <Char key={index} text={letter} delete={() => deleteLetter(index)}/>
-      }
-      )}
-    </div>
+    <StyledDiv>
+          <input type="text" onChange={handleLen}/>
+          <h3>Text Lenght : {textLen}</h3>
+          {valiComponent}
+          {textInput.map((letter,index) => 
+          {
+            return <Char key={index} text={letter} delete={() => deleteLetter(index)}/>
+          }
+          )}
+    </StyledDiv>
   )
 }
