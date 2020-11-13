@@ -1,26 +1,48 @@
-import React, { useState } from 'react';
-import './App.css';
-import UserInput from './UserInput/UserInput'
-import UserOutput from './UserOutput/UserOutput'
+import React, {useState} from 'react'
+import Char from './Char/Char'
+import Validation from './Validation/Validation'
 
-const App = () => {
 
-  const [posts, setPosts] = useState([]);
-  
-  const handlePosts = (newPost) => {
-    setPosts([...posts, newPost]);
+export default function App() {
+
+  const [textLen, setTextLen] = useState(0)
+  const [textInput, setTextInput] = useState([])
+
+  const handleLen = (event) => {
+    setTextLen(event.target.value.split('').length)
+    setTextInput(event.target.value.split(''))
+  } 
+
+  let valiComponent = null
+  if (textLen > 1){
+    valiComponent = <Validation textLen={textLen}/>;
   }
 
-  return(
-    <div className="App">
-      <UserInput handlePosts={handlePosts}/>
-      {
-        posts.map((post) => (
-          <UserOutput key={post.id} post={post}/>
-        ))
-      }
-    </div>
-  );
-}
+  const deleteLetter = (index) => {
+    const updatedList = [...textInput]
+    updatedList.splice(index,1)
+    setTextInput(updatedList)
+    setTextLen(updatedList.length)
+  }
 
-export default App;
+  const style = {
+    display: "inline-block",
+    padding: '16px',
+    margin: '16px',
+    border: '1px solid black',
+    textAlign: 'center'
+  }
+
+  return (
+    <div style={style}>
+      <input type="text" onChange={handleLen}/>
+      <h3>Text Lenght : {textLen}</h3>
+      {valiComponent}
+      {textInput.map((letter,index) => 
+      {
+        return <Char key={index} text={letter} delete={() => deleteLetter(index)}/>
+      }
+      )}
+    </div>
+  )
+}
