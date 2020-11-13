@@ -1,7 +1,6 @@
 import React from 'react'
 
 const UserOutput = (props) => {
-    console.log(props);
         return (
             <div className='UserOP'>
                 <h2>{props.post.username}</h2>
