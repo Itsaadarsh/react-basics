@@ -16,6 +16,7 @@ const App = () => {
       <UserInput handlePosts={handlePosts}/>
       {
         posts.map((post) => (
+          
           <UserOutput key={post.id} post={post}/>
         ))
       }
